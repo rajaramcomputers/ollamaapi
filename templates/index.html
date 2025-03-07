@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DeepSeek-R1:1.5B Chat</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>DeepSeek-R1:1.5B Chat</h1>
+        
+        <!-- Conversation History -->
+        <div class="chat-history">
+            {{range .History}}
+                <div class="message {{.Role}}">
+                    <strong>{{.Role | title}}</strong>
+                    <div class="content">
+                        {{if eq .Role "assistant"}}
+                            {{.Content | safeHTML}}
+                        {{else}}
+                            {{.Content}}
+                        {{end}}
+                    </div>
+                </div>
+            {{end}}
+        </div>
+
+        <form method="POST" action="/chat">
+            <textarea name="prompt" placeholder="Type your message..." required></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</body>
+</html>
